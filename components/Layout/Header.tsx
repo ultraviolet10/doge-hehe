@@ -1,32 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import ConnectButton from '@components/Button/ConnectButton';
+import ConnectButton from "@components/Button/ConnectButton";
 
 interface HeaderProps {} // eslint-disable-line
 
 const Header: React.FC<HeaderProps> = () => {
   return (
     <div className="bg-black ">
-      <div className="md:container md:mx-auto">
+      <div className="md:container md:mx-auto p-4">
         <div className="flex flex-row justify-between bg-black">
-          <img
-            className="w-[194px] h-[56px] md:w-[277px] md:h-[80px]"
-            src="/img/logo.png"
-            alt="logo"
-          />
+          <span className="text-white text-[30px] font-poppins">HeheDoge</span>
           <div className="flex items-center space-x-6">
-            <p className="text-sm font-normal text-white font-poppins">
-              Menu 1
-            </p>
-            <p className="text-sm font-normal text-white font-poppins">
-              Menu 2
-            </p>
-            <p className="text-sm font-normal text-white font-poppins">
-              Menu 3
-            </p>
-            <p className="text-sm font-normal text-white font-poppins">
-              Menu 4
-            </p>
+            <span className="text-[16px] font-normal text-white font-poppins">
+              Make Me Laugh
+            </span>
             <ConnectButton />
           </div>
         </div>

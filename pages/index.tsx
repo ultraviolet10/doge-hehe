@@ -1,18 +1,19 @@
-import React from 'react';
-import type { NextPage } from 'next';
-import clsx from 'clsx';
+import React from "react";
+import type { NextPage } from "next";
+import clsx from "clsx";
 
-import Layout from '@components/Layout/Layout';
+import Layout from "@components/Layout/Layout";
+import HeheCard from "@components/Hehe/HeheCard";
 
 const HomePage: NextPage = () => {
   return (
     <Layout>
-      <div
-        className={clsx({
-          'container w-full h-full mx-auto px-[60px]': true,
-          'bg-gray-100': true,
-        })}
-      ></div>
+      <div className="w-full h-full mx-auto px-[60px] bg-black">
+        {/* <span className="text-white place-self-center text-center">
+          Make Me Laugh
+        </span> */}
+        <HeheCard />
+      </div>
     </Layout>
   );
 };

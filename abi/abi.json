@@ -1,0 +1,82 @@
+{
+    "hehe": [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string[]",
+                    "name": "questions",
+                    "type": "string[]"
+                },
+                {
+                    "internalType": "string[]",
+                    "name": "answers",
+                    "type": "string[]"
+                }
+            ],
+            "name": "batchStoreHahas",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "hahas",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "question",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "answer",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "q",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "a",
+                    "type": "string"
+                }
+            ],
+            "name": "storeHaha",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}
