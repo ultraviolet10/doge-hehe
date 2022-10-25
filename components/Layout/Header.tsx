@@ -9,9 +9,9 @@ const Header: React.FC<HeaderProps> = () => {
     <div className="bg-black ">
       <div className="md:container md:mx-auto p-4">
         <div className="flex flex-row justify-between bg-black">
-          <span className="text-white text-[30px] font-poppins">HeheDoge</span>
+          <span className="text-white text-[30px] font-comic">HeheDoge</span>
           <div className="flex items-center space-x-6">
-            <span className="text-[16px] font-normal text-white font-poppins">
+            <span className="text-[16px] font-normal text-white font-comic">
               Make Me Laugh
             </span>
             <ConnectButton />

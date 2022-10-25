@@ -10,16 +10,16 @@ const Footer: React.FC<FooterProps> = () => {
           <div className="flex flex-row">
             <img src="/img/logo.png" alt="logo" />
             <div className="flex items-center space-x-6 ml-[50px]">
-              <p className="text-sm font-normal text-white font-poppins">
+              <p className="text-sm font-normal text-white font-comic">
                 Menu 1
               </p>
-              <p className="text-sm font-normal text-white font-poppins">
+              <p className="text-sm font-normal text-white font-comic">
                 Menu 2
               </p>
-              <p className="text-sm font-normal text-white font-poppins">
+              <p className="text-sm font-normal text-white font-comic">
                 Menu 3
               </p>
-              <p className="text-sm font-normal text-white font-poppins">
+              <p className="text-sm font-normal text-white font-comic">
                 Menu 4
               </p>
             </div>
