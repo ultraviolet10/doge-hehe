@@ -1,7 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from 'react';
 
-import { useWeb3 } from "../../hooks/useWeb3";
-import { useStore } from "@store/store";
+import { useWeb3 } from '../../hooks/useWeb3';
+import { useStore } from '@store/store';
+const { motion } = require('framer-motion');
+import { useRouter } from 'next/router';
 
 interface HeheCardProps {}
 
@@ -14,10 +16,13 @@ const HeheCard: React.FC<HeheCardProps> = () => {
   const { store } = useStore();
   const { account } = store;
   const { getHahas, mintNft } = useWeb3();
+  const router = useRouter();
+
   const [qa, setQa] = useState<Haha>({
     question: undefined,
     answer: undefined,
   });
+
   const [minted, setMinted] = useState<boolean>(false);
 
   const handleHeheCommand = async () => {
@@ -33,7 +38,7 @@ const HeheCard: React.FC<HeheCardProps> = () => {
     const mintNew = await mintNft(qa.question, qa.answer, account);
     if (mintNew) {
       setMinted(true);
-      console.log("done");
+      console.log('done');
     }
   }, [account, mintNft]);
 
@@ -43,11 +48,11 @@ const HeheCard: React.FC<HeheCardProps> = () => {
         <div className="flex flex-row w-full justify-between">
           <img
             className="opacity-30 w-[100px] h-[80px] place-self-end rounded-lg"
-            src={"/img/heh2.jpeg"}
+            src={'/img/heh2.jpeg'}
           />
           <img
             className="opacity-30 w-[100px] h-[80px] place-self-end rounded-lg"
-            src={"/img/hehe1.webp"}
+            src={'/img/hehe1.webp'}
           />
         </div>
 
@@ -99,6 +104,16 @@ const HeheCard: React.FC<HeheCardProps> = () => {
             Bring it
           </button>
         )}
+        <motion.button
+          className="p-2 text-white font-comic border border-white rounded-lg"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => {
+            router.push('/auction');
+          }}
+        >
+          Auctions!!!
+        </motion.button>
       </div>
     </div>
   );
