@@ -7,24 +7,24 @@ const AuctionPage: NextPage = () => {
   return (
     <div className="flex flex-col w-full h-screen bg-black">
       <div className="flex flex-col items-center justify-center p-3 space-y-12">
-        <span className="text-white text-[20px] font-comic">Auctions!!!!!</span>
+        <span className="text-white text-[20px] font-doge">Auctions!!!!!</span>
         <div className="flex flex-row space-x-8 items-center">
           <img
             className="w-[300px] h-[300px] rounded-md"
             src="/img/doge-gradient.png"
           ></img>
           <div className="flex flex-col space-y-6">
-            <span className="text-[16px] text-white font-comic">
+            <span className="text-[16px] text-white font-doge">
               Welcome to the DogeHehe Auctions!
             </span>
-            <span className="text-[16px] text-white font-comic">
+            <span className="text-[16px] text-white font-doge">
               One unique NFT up for auction everyday, with artwork that's stored
               on-chain.
             </span>
-            <span className="text-[16px] text-white font-comic">
+            <span className="text-[16px] text-white font-doge">
               AI generated jokes on each NFT - yours to own.
             </span>
-            <span className="text-[16px] text-white font-comic">
+            <span className="text-[16px] text-white font-doge">
               Auction refreshes every 24 hours - bid away!
             </span>
           </div>
@@ -40,7 +40,7 @@ const AuctionPage: NextPage = () => {
           }}
           // onClick={() => {}}
         >
-          <span className="text-white text-[16px] font-comic">Bid!!!</span>
+          <span className="text-white text-[16px] font-doge">Bid!!!</span>
         </motion.div>
       </div>
     </div>

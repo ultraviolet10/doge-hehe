@@ -56,15 +56,15 @@ const HeheCard: React.FC<HeheCardProps> = () => {
           />
         </div>
 
-        <span className="text-[22px] font-comic text-bold text-white">
+        <span className="text-[22px] font-doge text-bold text-white">
           Doge make hehe
         </span>
         {qa.answer ? (
           <div className="flex flex-col space-y-4 py-4">
-            <span className="text-[16px] font-comic text-white">
+            <span className="text-[16px] font-doge text-white">
               {qa.question}
             </span>
-            <span className="text-[16px] font-comic text-white">
+            <span className="text-[16px] font-doge text-white">
               {qa.answer}
             </span>
             <div className="flex flex-row space-x-2">
@@ -85,10 +85,10 @@ const HeheCard: React.FC<HeheCardProps> = () => {
             </div>
             {minted ? (
               <div className="flex flex-col">
-                <span className="text-[16px] font-comic text-bold text-white">
+                <span className="text-[16px] font-doge text-bold text-white">
                   {`Your token has been successfully minted!`}
                 </span>
-                <span className="text-[16px] font-comic text-bold text-white">
+                <span className="text-[16px] font-doge text-bold text-white">
                   {`Find your Hehe in your wallet.`}
                 </span>
               </div>
@@ -96,7 +96,7 @@ const HeheCard: React.FC<HeheCardProps> = () => {
           </div>
         ) : (
           <button
-            className="p-2 text-white font-comic border border-white rounded-lg"
+            className="p-2 text-white font-doge border border-white rounded-lg"
             onClick={() => {
               handleHeheCommand();
             }}
@@ -105,7 +105,7 @@ const HeheCard: React.FC<HeheCardProps> = () => {
           </button>
         )}
         <motion.button
-          className="p-2 text-white font-comic border border-white rounded-lg"
+          className="p-2 text-white font-doge border border-white rounded-lg"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => {
