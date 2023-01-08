@@ -18,6 +18,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         <WalletProvider>
           <Head>
             <title>HeheDoge</title>
+            <link rel="icon" href="/doge.ico" />
             <meta
               name="viewport"
               content="width=device-width, initial-scale=1.0"

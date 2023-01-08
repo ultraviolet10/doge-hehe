@@ -29,7 +29,7 @@ export const WalletContext = createContext<WalletContextProps>(defaultContext);
 export const WalletProvider: React.FC = ({ children }) => {
   const [connected, setConnected] = useState(defaultContext.connected);
   const { store, dispatch } = useStore();
-  const { hideConnectModal } = useModal();
+  const { hideModal } = useModal();
   const { provider, account } = store;
 
   const handleDisconnect = async () => {
@@ -70,10 +70,10 @@ export const WalletProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (account) {
       setConnected(true);
-      hideConnectModal();
+      hideModal();
       toast.success('Wallet connected');
     } else setConnected(false);
-  }, [account, hideConnectModal]);
+  }, [account, hideModal]);
 
   return (
     <WalletContext.Provider value={{ connected, disconnect: handleDisconnect }}>
