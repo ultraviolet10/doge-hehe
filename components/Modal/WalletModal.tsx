@@ -11,7 +11,7 @@ interface WalletModalProps {} // eslint-disable-line
 
 const WalletModal: React.FC<WalletModalProps> = () => {
   const { dispatch } = useStore();
-  const { hideConnectModal } = useModal();
+  const { hideModal } = useModal();
 
   const handleConnectWallet = useCallback(
     async (wallet: WalletType) => {
@@ -51,7 +51,7 @@ const WalletModal: React.FC<WalletModalProps> = () => {
             <button
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              onClick={hideConnectModal}
+              onClick={hideModal}
             >
               <svg
                 className="w-5 h-5"
