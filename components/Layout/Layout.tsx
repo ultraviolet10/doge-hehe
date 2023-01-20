@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import Header from "./Header";
+import Header from './Header';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -8,9 +8,9 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="flex flex-col w-full min-h-screen">
+    <div className="flex min-h-screen w-full flex-col">
       <Header />
-      <div className="flex flex-col w-full h-full bg-black grow">
+      <div className="flex h-full w-full grow flex-col bg-black">
         {children}
       </div>
     </div>

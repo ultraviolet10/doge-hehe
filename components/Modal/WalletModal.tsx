@@ -40,21 +40,21 @@ const WalletModal: React.FC<WalletModalProps> = () => {
   return (
     <div
       id="default-modal"
-      className="fixed top-0 left-0 z-50 flex items-center justify-center w-full y-full h-modal"
+      className="y-full fixed top-0 left-0 z-50 flex h-modal w-full items-center justify-center"
     >
-      <div className="relative w-full h-full max-w-md px-4 md:h-auto">
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <div className="flex items-center justify-between px-6 py-4 border-b rounded-t dark:border-gray-600">
-            <h3 className="text-base font-semibold text-gray-900 lg:text-xl dark:text-white">
+      <div className="relative h-full w-full max-w-md px-4 md:h-auto">
+        <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
+          <div className="flex items-center justify-between rounded-t border-b px-6 py-4 dark:border-gray-600">
+            <h3 className="lg:text-xl text-base font-semibold text-gray-900 dark:text-white">
               Connect wallet
             </h3>
             <button
               type="button"
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              className="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
               onClick={hideModal}
             >
               <svg
-                className="w-5 h-5"
+                className="h-5 w-5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -76,17 +76,17 @@ const WalletModal: React.FC<WalletModalProps> = () => {
               <li>
                 <button
                   onClick={() => handleConnectWallet(WalletType.METAMASK)}
-                  className="flex items-center w-full p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
+                  className="group flex w-full items-center rounded-lg bg-gray-50 p-3 text-base font-bold text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
                 >
                   <img
                     className="h-[20px] w-[20px]"
                     src="/img/metamask.svg"
                     alt="metamask"
                   />
-                  <span className="flex-1 ml-6 text-left whitespace-nowrap">
+                  <span className="ml-6 flex-1 whitespace-nowrap text-left">
                     MetaMask
                   </span>
-                  <span className="inline-flex items-center justify-center px-2 py-0.5 ml-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">
+                  <span className="text-xs ml-3 inline-flex items-center justify-center rounded bg-gray-200 px-2 py-0.5 font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400">
                     Popular
                   </span>
                 </button>
@@ -94,14 +94,14 @@ const WalletModal: React.FC<WalletModalProps> = () => {
               <li>
                 <button
                   onClick={() => handleConnectWallet(WalletType.WALLET_CONNECT)}
-                  className="flex items-center w-full p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
+                  className="group flex w-full items-center rounded-lg bg-gray-50 p-3 text-base font-bold text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
                 >
                   <img
                     className="h-[20px] w-[20px]"
                     src="/img/walletconnect.svg"
                     alt="wallet connect"
                   />
-                  <span className="flex-1 ml-6 text-left whitespace-nowrap">
+                  <span className="ml-6 flex-1 whitespace-nowrap text-left">
                     WalletConnect
                   </span>
                 </button>

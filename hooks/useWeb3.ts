@@ -1,13 +1,14 @@
-import { useCallback, useMemo } from "react";
-import ABI from "../abi/abi.json";
-import { useStore } from "@store/store";
+import { useCallback, useMemo } from 'react';
+import { ContractTransaction, ethers } from 'ethers';
 
 import {
+  AUCTION_CONTRACT_ADDRESS,
   HEHE_CONTRACT_ADDRESS,
   HEHE_TOKEN_CONTRACT_ADDRESS,
-} from "@config/config";
+} from '@config/config';
+import { useStore } from '@store/store';
 
-import { ethers, ContractTransaction } from "ethers";
+import ABI from '../abi/abi.json';
 
 export const useWeb3 = () => {
   const { store } = useStore();
@@ -25,6 +26,14 @@ export const useWeb3 = () => {
     );
   }, [signer]);
 
+  const auctionContract = useMemo(() => {
+    return new ethers.Contract(
+      AUCTION_CONTRACT_ADDRESS,
+      ABI.auctionHouse,
+      signer
+    );
+  }, [signer]);
+
   const getHahas = useCallback(async () => {
     const hahas = await heheContract.hahas(
       Math.abs(
@@ -36,7 +45,7 @@ export const useWeb3 = () => {
     if (hahas) {
       return hahas;
     } else {
-      return "";
+      return '';
     }
   }, [heheContract]);
 
@@ -63,8 +72,34 @@ export const useWeb3 = () => {
     [heheTokenContract]
   );
 
+  const getEventData = useCallback(async () => {
+    const logData = await auctionContract._auctions(1);
+
+    console.log(logData);
+
+    return logData;
+  }, [auctionContract]);
+
+  const placeBid = useCallback(
+    async (amount: string, tokenId?: number) => {
+      const setBidTx: ContractTransaction = await auctionContract.bid(tokenId, {
+        value: ethers.utils.parseEther(amount),
+      });
+      if (setBidTx) {
+        const txConfirmation = await setBidTx.wait();
+        if (txConfirmation) {
+          return true;
+        }
+      }
+      return false;
+    },
+    [auctionContract]
+  );
+
   return {
     getHahas,
     mintNft,
+    getEventData,
+    placeBid,
   };
 };

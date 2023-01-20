@@ -1,15 +1,14 @@
 import React from 'react';
 import type { NextPage } from 'next';
-import clsx from 'clsx';
 
-import Layout from '@components/Layout/Layout';
 import HeheCard from '@components/Hehe/HeheCard';
+import Layout from '@components/Layout/Layout';
 
 const HomePage: NextPage = () => {
   return (
     <Layout>
       <div className="grow">
-        <div className="flex items-center justify-center w-full h-screen">
+        <div className="flex h-screen w-full items-center justify-center">
           <HeheCard />
         </div>
       </div>

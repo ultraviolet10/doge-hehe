@@ -1,18 +1,45 @@
-import React, { useCallback, useState, useRef } from 'react';
-
-import { Modal } from 'flowbite-react';
-import { useModal, ModalEnum } from '@contexts/modal';
-
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
+import { Modal } from 'flowbite-react';
+import { ethers } from 'ethers';
 
+import { ModalEnum, useModal } from '@contexts/modal';
+import { useWeb3 } from '@hooks/useWeb3';
+import { Auction } from '@type/common';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface AuctionModalProps {}
 
 const AuctionModal: React.FC<AuctionModalProps> = () => {
   const { modal, hideModal } = useModal();
   const ref = useRef(null);
 
-  const [bidAmount, setBidAmount] = useState<string>('0.0');
+  const { getEventData, placeBid } = useWeb3();
 
+  const [bidAmount, setBidAmount] = useState<string>('0.0');
+  const [auction, setAuction] = useState<Auction | undefined>(undefined);
+  const [ugh, setUgh] = useState<number>(1);
+
+  useEffect(() => {
+    async function getRecentAuctionData() {
+      const logs = await getEventData();
+      console.log(new Date((logs?.endTime).toNumber()));
+      if (logs) setAuction(logs);
+    }
+
+    getRecentAuctionData();
+  }, [ugh]);
+
+  const handleClick = useCallback(async () => {
+    const bidPlaced = await placeBid(bidAmount, auction?.tokenId);
+    if (bidPlaced) {
+      setUgh(ugh + 1);
+    } else {
+      console.log('nice2');
+    }
+  }, [auction?.tokenId, bidAmount, placeBid, ugh]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleInput = (event: any) => {
     setBidAmount(event?.target.value);
   };
@@ -30,36 +57,53 @@ const AuctionModal: React.FC<AuctionModalProps> = () => {
     >
       <div
         ref={ref}
-        className="flex flex-col w-full h-full border border-white rounded-md shadow space-y-6 bg-gray-700 h-[600px] p-6 items-center justify-center"
+        className="flex h-[600px] w-full flex-col items-center justify-center space-y-6 rounded-md border border-white bg-gray-700 p-6 shadow"
       >
-        <span className="text-white text-[16px] font-doge">Current Hehe</span>
-        <div className="flex flex-row w-full p-6 space-x-20 items-start">
+        <span className="font-doge text-[16px] text-white">Current Hehe</span>
+        <div className="flex w-full flex-row items-start space-x-20 p-6">
           <img
-            className="w-[300px] h-[300px] rounded-md"
+            className="h-[300px] w-[300px] rounded-md"
             src="/img/doge-gradient.png"
+            alt="no_image"
           />
-          <div className="flex flex-col space-y-8 w-full">
+          <div className="flex w-full flex-col space-y-8">
             <div className="flex w-full">
-              <span className="text-white text-[25px] font-doge">{`Hehe No. 1`}</span>
+              <span className="font-doge text-[25px] text-white">
+                {`Hehe No.`}
+                {` `}
+                {`${auction?.tokenId}`}
+              </span>
             </div>
-            <div className="flex flex-row space-x-4 w-full justify-between">
+            <div className="flex w-full flex-col">
+              <span className="font-doge text-[18px] text-white">
+                {`Current Bidder:`}
+              </span>
+              <span className="font-doge text-[8px] text-white">
+                {`${auction?.bidder}`}
+              </span>
+            </div>
+            <div className="flex w-full flex-row justify-between space-x-4">
               <div className="flex flex-col space-y-2">
-                <span className="text-[#6c43dc] text-[16px] font-doge">
+                <span className="font-doge text-[16px] text-[#6c43dc]">
                   Current Bid
                 </span>
-                <span className="text-white text-[16px] font-doge">
-                  10000 Ɖ
+                <span className="font-doge text-[16px] text-white">
+                  {auction
+                    ? `${ethers.utils.formatEther(auction.bidAmount)} Ɖ`
+                    : `---`}
                 </span>
               </div>
 
               <div className="w-[3px] bg-white bg-opacity-10"></div>
 
               <div className="flex flex-col space-y-2">
-                <span className="text-[#6c43dc] text-[16px] font-doge">
+                <span className="font-doge text-[16px] text-[#6c43dc]">
                   Ends On
                 </span>
-                <span className="text-white text-[16px] font-doge">
-                  12/3/2023
+                <span className="font-doge text-[16px] text-white">
+                  {auction
+                    ? `${new Date((auction?.endTime).toNumber()).toUTCString()}`
+                    : `---`}
                 </span>
               </div>
             </div>
@@ -68,11 +112,11 @@ const AuctionModal: React.FC<AuctionModalProps> = () => {
               <input
                 value={bidAmount}
                 onChange={handleInput}
-                className="flex items-center h-[44px] px-5 w-full text-base font-bold text-white rounded-lg placeholder:text-right bg-[#17181A] group hover:shadow dark:bg-gray-600  dark:text-white"
+                className="group flex h-[44px] w-full items-center rounded-lg bg-[#17181A] px-5 text-base font-bold text-white placeholder:text-right hover:shadow dark:bg-gray-600  dark:text-white"
               />
               <button
-                className="w-1/2 p-2 text-white border border-white rounded-lg text-doge"
-                // onClick={handleMintClick}
+                className="text-doge w-1/2 rounded-lg border border-white p-2 text-white"
+                onClick={handleClick}
               >
                 Place Bid
               </button>
