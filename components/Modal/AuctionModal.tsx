@@ -7,8 +7,7 @@ import { ModalEnum, useModal } from '@contexts/modal';
 import { useWeb3 } from '@hooks/useWeb3';
 import { Auction } from '@type/common';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface AuctionModalProps {}
+interface AuctionModalProps {} // eslint-disable-line
 
 const AuctionModal: React.FC<AuctionModalProps> = () => {
   const { modal, hideModal } = useModal();
@@ -28,7 +27,7 @@ const AuctionModal: React.FC<AuctionModalProps> = () => {
     }
 
     getRecentAuctionData();
-  }, [ugh]);
+  }, [getEventData, ugh]);
 
   const handleClick = useCallback(async () => {
     const bidPlaced = await placeBid(bidAmount, auction?.tokenId);
@@ -39,7 +38,7 @@ const AuctionModal: React.FC<AuctionModalProps> = () => {
     }
   }, [auction?.tokenId, bidAmount, placeBid, ugh]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line
   const handleInput = (event: any) => {
     setBidAmount(event?.target.value);
   };

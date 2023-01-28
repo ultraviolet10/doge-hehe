@@ -6,9 +6,9 @@ interface HeaderProps {} // eslint-disable-line
 
 const Header: React.FC<HeaderProps> = () => {
   return (
-    <div className="bg-black ">
+    <div className="bg-gradient-to-r from-purple-500 to-header">
       <div className="p-4 md:container md:mx-auto">
-        <div className="flex flex-row justify-between bg-black">
+        <div className="flex flex-row justify-between">
           <span className="font-doge text-[30px] text-white">HeheDoge</span>
           <div className="flex items-center space-x-6">
             <span className="font-doge text-[16px] font-normal text-white">

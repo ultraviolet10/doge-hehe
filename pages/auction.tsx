@@ -1,6 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 
+// import CurrentDoge from '@components/Hehe/CurrentDoge';
 import { ModalEnum, useModal } from '@contexts/modal';
 import { motion } from 'framer-motion';
 
@@ -38,19 +39,7 @@ const AuctionPage: NextPage = () => {
             alt="no-image"
           />
           <div className="flex flex-col space-y-6">
-            <span className="font-doge text-[16px] text-white">
-              Welcome to the DogeHehe Auctions!
-            </span>
-            <span className="font-doge text-[16px] text-white">
-              {`One unique NFT up for auction everyday, with artwork that's stored
-              on-chain.`}
-            </span>
-            <span className="font-doge text-[16px] text-white">
-              AI generated jokes on each NFT - yours to own.
-            </span>
-            <span className="font-doge text-[16px] text-white">
-              Auction refreshes every 24 hours - bid away!
-            </span>
+            
           </div>
         </div>
         <motion.div

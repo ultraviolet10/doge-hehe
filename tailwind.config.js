@@ -24,6 +24,8 @@ module.exports = {
         'gray-4': '#DFDFDF',
         'gray-6': '#F2F2F2',
         'gray-9': '#272727',
+        'doge': '#713C63',
+        'header': '#E55C55'
       },
       backgroundImage: {
         head: "url('/img/problem_head.png')",
