@@ -114,7 +114,7 @@ const AuctionModal: React.FC<AuctionModalProps> = () => {
                 className="group flex h-[44px] w-full items-center rounded-lg bg-[#17181A] px-5 text-base font-bold text-white placeholder:text-right hover:shadow dark:bg-gray-600  dark:text-white"
               />
               <button
-                className="text-doge w-1/2 rounded-lg border border-white p-2 text-white"
+                className="text-doge w-1/2 rounded-lg border border-white p-2"
                 onClick={handleClick}
               >
                 Place Bid

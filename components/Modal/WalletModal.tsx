@@ -43,9 +43,9 @@ const WalletModal: React.FC<WalletModalProps> = () => {
       className="y-full fixed top-0 left-0 z-50 flex h-modal w-full items-center justify-center"
     >
       <div className="relative h-full w-full max-w-md px-4 md:h-auto">
-        <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
+        <div className="relative rounded-lg bg-wallet shadow dark:bg-gray-700">
           <div className="flex items-center justify-between rounded-t border-b px-6 py-4 dark:border-gray-600">
-            <h3 className="lg:text-xl text-base font-semibold text-gray-900 dark:text-white">
+            <h3 className="lg:text-xl font-comic font-semibold text-gray-900 dark:text-white">
               Connect wallet
             </h3>
             <button
@@ -68,10 +68,10 @@ const WalletModal: React.FC<WalletModalProps> = () => {
             </button>
           </div>
           <div className="p-6">
-            <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+            <span className="font-comic text-sm font-normal text-gray-500 dark:text-gray-400">
               Connect with one of our available wallet providers or create a new
               one.
-            </p>
+            </span>
             <ul className="my-4 space-y-3">
               <li>
                 <button
@@ -83,7 +83,7 @@ const WalletModal: React.FC<WalletModalProps> = () => {
                     src="/img/metamask.svg"
                     alt="metamask"
                   />
-                  <span className="ml-6 flex-1 whitespace-nowrap text-left">
+                  <span className="ml-6 flex-1 whitespace-nowrap text-left font-comic">
                     MetaMask
                   </span>
                   <span className="text-xs ml-3 inline-flex items-center justify-center rounded bg-gray-200 px-2 py-0.5 font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400">
@@ -101,7 +101,7 @@ const WalletModal: React.FC<WalletModalProps> = () => {
                     src="/img/walletconnect.svg"
                     alt="wallet connect"
                   />
-                  <span className="ml-6 flex-1 whitespace-nowrap text-left">
+                  <span className="ml-6 flex-1 whitespace-nowrap text-left font-comic">
                     WalletConnect
                   </span>
                 </button>

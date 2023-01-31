@@ -2,26 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { useFollowPointer } from '@hooks/useFollowPointer';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-import CurrentDoge from './CurrentDoge';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface HeheCardProps {}
-
-// interface Haha {
-//   question?: string;
-//   answer?: string;
-// }
+interface HeheCardProps {} // eslint-disable-line 
 
 const HeheCard: React.FC<HeheCardProps> = () => {
   const router = useRouter();
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
-  const controls = useAnimation();
 
   const [colorIndex, setColorIndex] = useState(0);
-  const colors = ['#ff0099', '#493240', '#63BE61', '#61AAF3'];
+  const colors = ['#3F3B6C', '#624F82', '#9F73AB', '#A3C7D6'];
   const variants = {
     start: {
       backgroundColor: colors[colorIndex],
@@ -37,17 +29,7 @@ const HeheCard: React.FC<HeheCardProps> = () => {
       setColorIndex((colorIndex + 1) % colors.length);
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
-
-  const textVariants = {
-    rotate: {
-      color: ['#ff0099', '#493240', '#00ff00'],
-      transition: {
-        duration: 1,
-        ease: 'easeInOut',
-      },
-    },
-  };
+  }, [colorIndex, colors.length]);
 
   const buttonVariants = {
     hover: {
@@ -57,28 +39,28 @@ const HeheCard: React.FC<HeheCardProps> = () => {
   };
 
   return (
-    <div className="flex h-[800px] w-full items-center justify-center place-self-center rounded-xl">
-      <div className="flex h-[80%] w-[80%] flex-col items-center justify-center space-y-20 rounded-2xl bg-[#7C426D] p-4">
+    <div className="flex h-[80%] w-[50%] items-center justify-center place-self-center rounded-xl">
+      <motion.div
+        ref={ref}
+        className="box"
+        animate={{ x, y }}
+        transition={{
+          type: 'spring',
+          bounce: 0.25,
+          damping: 10,
+          stiffness: 70,
+          restDelta: 0.01,
+        }}
+      >
+        <img
+          className="h-[35px] w-[35px] rounded-md"
+          src="/img/cursor2.gif"
+          alt="no-image"
+        />
+      </motion.div>
+      <div className="flex h-[75%] w-[85%] flex-col items-center justify-center space-y-8 rounded-2xl border-[2px] border-black bg-[#8BBCCC] px-12">
         <motion.div
-          ref={ref}
-          className="box"
-          animate={{ x, y }}
-          transition={{
-            type: 'spring',
-            bounce: 0.25,
-            damping: 10,
-            stiffness: 70,
-            restDelta: 0.01,
-          }}
-        >
-          <img
-            className="h-[35px] w-[35px] rounded-md"
-            src="/img/cursor2.gif"
-            alt="no-image"
-          />
-        </motion.div>
-        <motion.div
-          className="text-bold h-20 font-doge text-[26px] text-white p-5 rounded-xl"
+          className="text-bold mb-4 h-20 rounded-xl p-5 font-doge text-[26px] text-white"
           animate="end"
           initial="start"
           variants={variants}
@@ -88,32 +70,23 @@ const HeheCard: React.FC<HeheCardProps> = () => {
         >
           DOGE MAKE HEHE
         </motion.div>
-        <CurrentDoge />
         <div className="flex flex-col space-y-4">
-          <motion.div
-            animate={{ backgroundSize: '10000px' }}
-            transition={{ duration: 3 }}
-            className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text font-doge text-[16px]"
-          >
+          <span className="font-comic text-[25px]">
             Welcome to the DogeHehe Auctions!
-          </motion.div>
-          <span className="font-doge text-[16px] text-white">
+          </span>
+          <span className="font-comic text-[21px] text-white">
             {`One unique NFT up for auction everyday, with artwork that's stored
               on-chain.`}
           </span>
-          <span className="font-doge text-[16px] text-white">
+          <span className="font-comic text-[21px] text-white">
             AI generated jokes on each NFT - yours to own.
           </span>
-          <motion.p
-            className="text-xl font-doge"
-            animate={controls}
-            variants={textVariants}
-          >
+          <span className="font-comic text-[25px]">
             Auction refreshes every 24 hours - bid away!
-          </motion.p>
+          </span>
         </div>
         <motion.button
-          className="rounded-xl border border-indigo-500 bg-transparent py-2 px-4 font-doge font-semibold text-white hover:border-transparent hover:bg-indigo-500 hover:text-white"
+          className="rounded-xl border border-indigo-900 bg-transparent py-2 px-4 font-doge font-semibold text-white hover:border-transparent hover:bg-indigo-500 hover:text-white"
           variants={buttonVariants}
           whileHover="hover"
           onClick={() => {

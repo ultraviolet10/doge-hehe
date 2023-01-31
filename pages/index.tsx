@@ -8,7 +8,7 @@ const HomePage: NextPage = () => {
   return (
     <Layout>
       <div className="grow">
-        <div className="flex h-screen w-full items-center justify-center">
+        <div className="relative flex h-screen w-full items-center justify-center">
           <HeheCard />
         </div>
       </div>

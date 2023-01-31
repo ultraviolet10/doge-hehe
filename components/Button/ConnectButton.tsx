@@ -22,9 +22,9 @@ const ConnectButton: React.FC<ConnectButtonProps> = () => {
     <button
       onClick={handleConnect}
       type="button"
-      className="bg-primary mr-8 flex flex-row items-center justify-center rounded-md border border-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-6 py-2 text-center font-doge text-base font-medium text-white shadow-sm hover:bg-green-800"
+      className="bg-primary mr-8 flex flex-row items-center justify-center rounded-md border border-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-6 py-2 text-center font-doge text-base font-medium text-white shadow-sm"
     >
-      {!connected ? 'Connect Wallet' : shortenAddress(account)}
+      {!connected ? 'connect' : shortenAddress(account)}
     </button>
   );
 };
