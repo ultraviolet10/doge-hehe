@@ -62,8 +62,8 @@ export const useWeb3 = () => {
         )
       );
       if (mint) {
-        const mintTx = await mint.wait();
-        if (mintTx.confirmations > 0) {
+        const mintTx = await mint.wait(1);
+        if (mintTx) {
           return true;
         }
       }
@@ -86,7 +86,7 @@ export const useWeb3 = () => {
         value: ethers.utils.parseEther(amount),
       });
       if (setBidTx) {
-        const txConfirmation = await setBidTx.wait();
+        const txConfirmation = await setBidTx.wait(1);
         if (txConfirmation) {
           return true;
         }
