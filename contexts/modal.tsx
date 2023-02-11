@@ -1,7 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 
 import WalletModal from '@components/Modal/WalletModal';
-import AuctionModal from '@components/Modal/AuctionModal';
 
 export enum ModalEnum {
   WALLET_MODAL = 'wallet-modal',
@@ -37,7 +36,6 @@ export const ModalProvider: React.FC = ({ children }) => {
     >
       {children}
       {modal == ModalEnum.WALLET_MODAL && <WalletModal />}
-      {modal == ModalEnum.AUCTION_MODAL && <AuctionModal />}
     </ModalContext.Provider>
   );
 };
