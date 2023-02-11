@@ -91,6 +91,11 @@
           "internalType": "string",
           "name": "_symbol",
           "type": "string"
+        },
+        {
+          "internalType": "contract IHahaRepo",
+          "name": "_hahaRepo",
+          "type": "address"
         }
       ],
       "stateMutability": "nonpayable",
@@ -154,12 +159,6 @@
           "internalType": "uint256",
           "name": "tokenId",
           "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "tokenURI",
-          "type": "string"
         }
       ],
       "name": "CreatedHeheToken",
@@ -252,25 +251,16 @@
           "internalType": "address",
           "name": "to",
           "type": "address"
-        },
-        {
-          "internalType": "string",
-          "name": "punchline",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "hook",
-          "type": "string"
-        },
+        }
+      ],
+      "name": "createHehe",
+      "outputs": [
         {
           "internalType": "uint256",
-          "name": "tokenId",
+          "name": "",
           "type": "uint256"
         }
       ],
-      "name": "create",
-      "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
@@ -286,6 +276,19 @@
       "outputs": [
         {
           "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "hahaRepo",
+      "outputs": [
+        {
+          "internalType": "contract IHahaRepo",
           "name": "",
           "type": "address"
         }
@@ -441,25 +444,6 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "stakedBlockNumber",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
           "internalType": "bytes4",
           "name": "interfaceId",
           "type": "bytes4"
@@ -484,6 +468,19 @@
           "internalType": "string",
           "name": "",
           "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "tokenCounter",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",

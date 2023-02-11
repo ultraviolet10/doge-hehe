@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { ContractTransaction, ethers } from 'ethers';
+import { BigNumber, ContractTransaction, ethers } from 'ethers';
 
 import {
   AUCTION_CONTRACT_ADDRESS,
@@ -73,18 +73,21 @@ export const useWeb3 = () => {
   );
 
   const getEventData = useCallback(async () => {
-    const logData = await auctionContract._auctions(1);
-
-    console.log(logData);
+    const currentToken = await heheTokenContract.tokenCounter();
+    const logData = await auctionContract._auctions(Number(currentToken) - 1);
 
     return logData;
-  }, [auctionContract]);
+  }, [auctionContract, heheTokenContract]);
 
-  const placeBid = useCallback(
-    async (amount: string, tokenId?: number) => {
-      const setBidTx: ContractTransaction = await auctionContract.bid(tokenId, {
-        value: ethers.utils.parseEther(amount),
-      });
+  const placeHeheBid = useCallback(
+    async (amount: string) => {
+      const currentToken = await heheTokenContract.tokenCounter();
+      const setBidTx: ContractTransaction = await auctionContract.bid(
+        BigNumber.from(Number(currentToken) - 1),
+        {
+          value: ethers.utils.parseEther(amount),
+        }
+      );
       if (setBidTx) {
         const txConfirmation = await setBidTx.wait(1);
         if (txConfirmation) {
@@ -93,13 +96,21 @@ export const useWeb3 = () => {
       }
       return false;
     },
-    [auctionContract]
+    [auctionContract, heheTokenContract]
   );
+
+  const settleAuction = useCallback(async () => {
+    const settleTx: ContractTransaction = await auctionContract.settleCurrentAndCreateNewAuction();
+    const confirmTx = await settleTx.wait(1);
+    if (confirmTx) return true;
+    return false;
+  }, [auctionContract]);
 
   return {
     getHahas,
     mintNft,
     getEventData,
-    placeBid,
+    placeHeheBid,
+    settleAuction,
   };
 };
