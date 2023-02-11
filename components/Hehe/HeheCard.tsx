@@ -4,8 +4,7 @@ import { useRouter } from 'next/router';
 import { useFollowPointer } from '@hooks/useFollowPointer';
 import { motion } from 'framer-motion';
 
-
-interface HeheCardProps {} // eslint-disable-line 
+interface HeheCardProps {} // eslint-disable-line
 
 const HeheCard: React.FC<HeheCardProps> = () => {
   const router = useRouter();
@@ -13,7 +12,7 @@ const HeheCard: React.FC<HeheCardProps> = () => {
   const { x, y } = useFollowPointer(ref);
 
   const [colorIndex, setColorIndex] = useState(0);
-  const colors = ['#3F3B6C', '#624F82', '#9F73AB', '#A3C7D6'];
+  const colors = ['#3F3B6C', '#624F82', '#9F73AB', '#A3C7D6', '#E7153A'];
   const variants = {
     start: {
       backgroundColor: colors[colorIndex],
@@ -27,7 +26,7 @@ const HeheCard: React.FC<HeheCardProps> = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setColorIndex((colorIndex + 1) % colors.length);
-    }, 1000);
+    }, 500);
     return () => clearInterval(interval);
   }, [colorIndex, colors.length]);
 

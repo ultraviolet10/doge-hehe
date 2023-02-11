@@ -3,7 +3,6 @@ import type { NextPage } from 'next';
 import { ethers } from 'ethers';
 
 import CurrentDoge from '@components/Hehe/CurrentDoge';
-import DoneHehe from '@components/Hehe/DoneHehe';
 import { useWeb3 } from '@hooks/useWeb3';
 import { useStore } from '@store/store';
 import { Auction } from '@type/common';
@@ -21,6 +20,7 @@ const AuctionPage: NextPage = () => {
   const [auction, setAuction] = useState<Auction | undefined>(undefined);
   const [time, setTime] = useState<string | undefined>('');
   const [elapsed, setElapsed] = useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
 
   const { getEventData, placeHeheBid, settleAuction } = useWeb3();
 
@@ -52,11 +52,12 @@ const AuctionPage: NextPage = () => {
   };
 
   const handleBid = useCallback(async () => {
-    console.log(bidAmount);
+    setVisible(true);
     const placeBid = await placeHeheBid(bidAmount);
     if (placeBid) {
       getEventData();
       setBidAmount('');
+      setVisible(false);
     }
   }, [bidAmount, getEventData, placeHeheBid]);
 
@@ -136,31 +137,55 @@ const AuctionPage: NextPage = () => {
                 </span>
               </div>
             </div>
-            
+
             {elapsed &&
-            auction?.bidder.toLowerCase() === account?.toLowerCase() ? (
-              <motion.div
-                className="flex h-[40%] w-full flex-row items-center justify-center"
-                onClick={handleSettle}
-              >
-                <span className="bg-purple-700 text-center font-doge text-[20px] text-white">
-                  <DoneHehe index={0} content={`X`} />
-                </span>
-              </motion.div>
-            ) : (
-              <div className="flex w-full flex-row space-x-3">
+              auction?.bidder.toLowerCase() === account?.toLowerCase() && (
+                <motion.div
+                  className="flex h-[40%] w-full flex-row items-center justify-center rounded-2xl border-[5px] border-white bg-purple-700 p-10"
+                  onClick={handleSettle}
+                >
+                  <span className="text-center font-doge text-[20px] text-white">
+                    CLAIM YOUR HEHE
+                  </span>
+                </motion.div>
+              )}
+
+            {!!elapsed &&
+              auction?.bidder.toLowerCase() !== account?.toLowerCase() && (
+                <div className="flex h-[40%] w-full flex-row items-center justify-center rounded-2xl bg-purple-700 p-10">
+                  <span className="text-center font-doge text-[20px] text-white">{`${shortenAddress(
+                    auction?.bidder
+                  )} is now a Hehe!`}</span>
+                  <img
+                    className="h-[40px] w-[40px] -rotate-[10deg]"
+                    src={'/img/icon_var_4.svg'}
+                    alt="doge"
+                  />
+                </div>
+              )}
+
+            {!elapsed && !visible ? (
+              <div className="flex h-[20%] w-full flex-row space-x-3">
                 <input
                   value={bidAmount}
                   onChange={handleInput}
                   className="group flex h-[44px] w-[70%] items-center rounded-lg bg-[#FFE6A0] px-5 font-doge text-base font-bold text-black placeholder:text-right hover:shadow"
                 />
                 <button
-                  className="w-[30%] rounded-lg border border-black p-2 font-doge"
+                  className="w-[30%] rounded-lg border border-black p-2 font-doge text-[10px]"
                   onClick={handleBid}
                   disabled={elapsed}
                 >
                   much bid
                 </button>
+              </div>
+            ) : (
+              <div className="flex h-[20%] w-full flex-row space-x-3">
+                <img
+                  className="h-[60px] w-[60px] rounded-md"
+                  src="/img/bang.gif"
+                  alt="no-image"
+                />
               </div>
             )}
           </div>
