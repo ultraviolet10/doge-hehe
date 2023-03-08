@@ -7,6 +7,7 @@ import Script from 'next/script';
 import { ModalProvider } from '@contexts/modal';
 import { WalletProvider } from '@contexts/wallet';
 import { StoreProvider } from '@store/store';
+import { Analytics } from '@vercel/analytics/react';
 
 import '@styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,6 +30,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             strategy="beforeInteractive"
           />
           <Component {...pageProps} />
+          <Analytics />
           <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
         </WalletProvider>
       </ModalProvider>
