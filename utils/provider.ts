@@ -6,6 +6,8 @@ import { providers } from 'ethers';
 import { ALCHEMY_API_KEY, ALCHEMY_URL, ETHEREUM_NETWORK } from '@config/config';
 import { StoreActions, StoreActionTypes, StoreState } from '@type/store';
 
+const DC_CHAIN_ID = 568;
+
 export const configMetamask = async (
   dispatch: Dispatch<StoreActions>
 ): Promise<StoreState> => {
@@ -13,9 +15,16 @@ export const configMetamask = async (
   let provider: providers.AlchemyProvider | providers.Web3Provider;
 
   if (metamaskProvider && window.ethereum) {
+    // metamask
     provider = new providers.Web3Provider(window.ethereum);
   } else {
     provider = new providers.AlchemyProvider(ETHEREUM_NETWORK, ALCHEMY_API_KEY);
+  }
+
+  const { chainId } = await provider.getNetwork();
+
+  if (chainId !== DC_CHAIN_ID) {
+    return { provider: undefined, account: undefined };
   }
 
   dispatch({

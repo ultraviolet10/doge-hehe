@@ -17,7 +17,7 @@ import { useModal } from './modal';
 export interface WalletContextProps {
   connected: boolean;
   disconnect: () => void;
-} // eslint-disable-line
+}
 
 const defaultContext: WalletContextProps = {
   connected: false,

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { toast } from 'react-toastify';
 import { utils } from 'ethers';
 
 import { useModal } from '@contexts/modal';
@@ -20,6 +21,11 @@ const WalletModal: React.FC<WalletModalProps> = () => {
           wallet === WalletType.WALLET_CONNECT
             ? await configWalletConnect(dispatch)
             : await configMetamask(dispatch);
+
+        if (!provider) {
+          toast.info('Please switch to Dogechain network within your wallet.');
+          return;
+        }
 
         if (account) {
           const balance = await provider?.getBalance(account);
