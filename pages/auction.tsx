@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import { ethers } from 'ethers';
 
+import ColoredHeader from '@components/Hehe/ColoredHeader';
 import CurrentDoge from '@components/Hehe/CurrentDoge';
 import { useWeb3 } from '@hooks/useWeb3';
 import { useStore } from '@store/store';
@@ -34,6 +35,9 @@ const AuctionPage: NextPage = () => {
         compareTimestamps(logs?.endTime) < 0
           ? setElapsed(false)
           : setElapsed(true);
+      } else {
+        // no auction active
+        setAuction(undefined);
       }
     }
 
@@ -72,12 +76,18 @@ const AuctionPage: NextPage = () => {
   return (
     <div className="flex h-screen w-full flex-col bg-body">
       <div className="flex w-full flex-col items-center justify-center p-3">
-        <div className="flex w-full flex-row justify-between">
+        <div className="flex w-full flex-row items-center justify-between">
           <img
             className="h-[40px] w-[40px] rounded-md"
             src="/img/cursor2.gif"
             alt="no-image"
           />
+
+          {!auction ? (
+            <ColoredHeader
+              text={`Oops! Looks like there isn't an ongoing auction.`}
+            />
+          ) : null}
 
           <img
             className="h-[40px] w-[40px] rounded-md"
@@ -87,19 +97,17 @@ const AuctionPage: NextPage = () => {
         </div>
 
         <div className="flex h-full w-[60%] flex-row items-center justify-center space-x-20 py-20 px-10">
-          {/* {auction ? () : ()} */}
           <CurrentDoge />
-
           <div className="flex w-full flex-col space-y-8">
             <div className="flex w-full">
               <span className="font-doge text-[25px] text-black">
                 {`Hehe #`}
                 {` `}
-                {`${auction?.tokenId}`}
+                {auction?.tokenId ? `${auction?.tokenId}` : `---`}
               </span>
             </div>
             <div className="flex w-full flex-col">
-              <span className="font-comic text-[18px] text-black">
+              <span className="font-comic text-[20px] text-black">
                 {`Current Bidder:`}
               </span>
               <a
@@ -107,32 +115,32 @@ const AuctionPage: NextPage = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <span className="font-comic text-[20px] font-bold text-black">
+                <span className="font-comic text-[30px] font-bold text-black">
                   {`${
                     auction?.bidder ? shortenAddress(auction.bidder) : '---'
                   }`}
                 </span>
               </a>
             </div>
-            <div className="flex flex-row justify-between space-x-4">
+            <div className="flex w-[85%] flex-row justify-between">
               <div className="flex flex-col space-y-2">
-                <span className="font-comic text-[16px] text-[#6c43dc]">
+                <span className="font-comic text-[20px] text-[#6c43dc]">
                   Current Bid
                 </span>
-                <span className="font-comic text-[16px] text-black">
+                <span className="font-comic text-[30px] text-black">
                   {auction
                     ? `${ethers.utils.formatEther(auction.bidAmount)} Ɖ`
                     : `---`}
                 </span>
               </div>
 
-              <div className="w-[3px] bg-black bg-opacity-20"></div>
+              <div className="w-[2px] bg-black bg-opacity-20"></div>
 
               <div className="flex flex-col space-y-2">
-                <span className="font-comic text-[16px] text-[#6c43dc]">
+                <span className="font-comic text-[20px] text-[#6c43dc]">
                   Ends At
                 </span>
-                <span className="font-comic text-[16px] text-black">
+                <span className="font-comic text-[30px] text-black">
                   {time ? `${time}` : `---`}
                 </span>
               </div>
@@ -152,7 +160,7 @@ const AuctionPage: NextPage = () => {
 
             {!!elapsed &&
               auction?.bidder.toLowerCase() !== account?.toLowerCase() && (
-                <div className="flex h-[40%] w-full flex-row items-center justify-center rounded-2xl bg-purple-700 p-10">
+                <div className="flex h-[40%] w-full flex-row items-center justify-center space-x-4 rounded-2xl bg-purple-700 p-10">
                   <span className="text-center font-doge text-[20px] text-white">{`${shortenAddress(
                     auction?.bidder
                   )} is now a Hehe!`}</span>
@@ -169,6 +177,7 @@ const AuctionPage: NextPage = () => {
                 <input
                   value={bidAmount}
                   onChange={handleInput}
+                  disabled={auction === undefined}
                   className="group flex h-[44px] w-[70%] items-center rounded-lg bg-[#FFE6A0] px-5 font-doge text-base font-bold text-black placeholder:text-right hover:shadow"
                 />
                 <button
@@ -189,6 +198,19 @@ const AuctionPage: NextPage = () => {
               </div>
             )}
           </div>
+        </div>
+        <div className="flex w-[60%] items-center justify-center">
+          <span className="break-normal font-comic text-[25px]">
+            {`Wow! Much welcome to HeheDoge! Here, you can
+            bid on cool NFT artwork with jokes on them. Much humor! Every 24
+            hours, we unveil a new NFT for auction, and you can place bids to
+            win it. The highest bidder wins, and you get to enjoy a unique joke
+            on your new NFT. Much fun! Our on-chain platform ensures that
+            everything is safe and transparent, so you can trust us with your
+            bids. But you gotta hurry! This 30-day experiment is a limited-time
+            offer, so don't miss your chance to be a part of the HeheDoge
+            community. Come join us and let's have much fun together!`}
+          </span>
         </div>
       </div>
     </div>

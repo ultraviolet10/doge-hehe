@@ -49,66 +49,58 @@ export const useWeb3 = () => {
     }
   }, [heheContract]);
 
-  const mintNft = useCallback(
-    async (punchline: string, hook: string, address: string) => {
-      const mint: ContractTransaction = await heheTokenContract.create(
-        address,
-        punchline,
-        hook,
-        Math.abs(
-          Math.floor(
-            Math.random() * (Math.ceil(1) - Math.floor(10)) + Math.ceil(1)
-          )
-        )
-      );
-      if (mint) {
-        const mintTx = await mint.wait(1);
-        if (mintTx) {
-          return true;
-        }
-      }
-      return false;
-    },
-    [heheTokenContract]
-  );
-
   const getEventData = useCallback(async () => {
-    const currentToken = await heheTokenContract.tokenCounter();
-    const logData = await auctionContract._auctions(Number(currentToken) - 1);
+    try {
+      const currentToken = await heheTokenContract.tokenCounter();
+      const logData = await auctionContract._auctions(Number(currentToken) - 1);
 
-    return logData;
+      return logData;
+    } catch (error) {
+      console.log(error);
+      return undefined;
+    }
   }, [auctionContract, heheTokenContract]);
 
   const placeHeheBid = useCallback(
     async (amount: string) => {
-      const currentToken = await heheTokenContract.tokenCounter();
-      const setBidTx: ContractTransaction = await auctionContract.bid(
-        BigNumber.from(Number(currentToken) - 1),
-        {
-          value: ethers.utils.parseEther(amount),
+      try {
+        const currentToken = await heheTokenContract.tokenCounter();
+        const setBidTx: ContractTransaction = await auctionContract.bid(
+          BigNumber.from(Number(currentToken) - 1),
+          {
+            value: ethers.utils.parseEther(amount),
+          }
+        );
+        if (setBidTx) {
+          const txConfirmation = await setBidTx.wait(1);
+          if (txConfirmation) {
+            return true;
+          }
         }
-      );
-      if (setBidTx) {
-        const txConfirmation = await setBidTx.wait(1);
-        if (txConfirmation) {
-          return true;
-        }
+        return false;
+      } catch (error) {
+        console.log(error);
+        return false;
       }
-      return false;
     },
     [auctionContract, heheTokenContract]
   );
 
   const settleAuction = useCallback(async () => {
-    const settleTx: ContractTransaction = await auctionContract.settleCurrentAndCreateNewAuction();
-    const confirmTx = await settleTx.wait(1);
-    if (confirmTx) return true;
-    return false;
+    try {
+      const settleTx: ContractTransaction =
+        await auctionContract.settleCurrentAndCreateNewAuction();
+      const confirmTx = await settleTx.wait(1);
+      if (confirmTx) return true;
+      return false;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }, [auctionContract]);
 
   return {
     getHahas,
-    mintNft,
     getEventData,
     placeHeheBid,
     settleAuction,
