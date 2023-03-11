@@ -6,7 +6,7 @@ import { providers } from 'ethers';
 import { ALCHEMY_API_KEY, ALCHEMY_URL, ETHEREUM_NETWORK } from '@config/config';
 import { StoreActions, StoreActionTypes, StoreState } from '@type/store';
 
-const DC_CHAIN_ID = 568;
+const DC_CHAIN_ID = 2000;
 
 export const configMetamask = async (
   dispatch: Dispatch<StoreActions>
