@@ -92,24 +92,6 @@ const WalletModal: React.FC<WalletModalProps> = () => {
                   <span className="ml-6 flex-1 whitespace-nowrap text-left font-comic">
                     MetaMask
                   </span>
-                  <span className="text-xs ml-3 inline-flex items-center justify-center rounded bg-gray-200 px-2 py-0.5 font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400">
-                    Popular
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleConnectWallet(WalletType.WALLET_CONNECT)}
-                  className="group flex w-full items-center rounded-lg bg-gray-50 p-3 text-base font-bold text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
-                >
-                  <img
-                    className="h-[20px] w-[20px]"
-                    src="/img/walletconnect.svg"
-                    alt="wallet connect"
-                  />
-                  <span className="ml-6 flex-1 whitespace-nowrap text-left font-comic">
-                    WalletConnect
-                  </span>
                 </button>
               </li>
             </ul>
