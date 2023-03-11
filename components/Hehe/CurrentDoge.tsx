@@ -19,30 +19,30 @@ const CurrentDoge: React.FC<HeheCardProps> = ({ tokenId }) => {
             <animate
               id="a1"
               attributeName="stop-color"
-              values="#d33963; #ccb676"
+              values="#d33963; #2f72b2"
               begin="0; a2.end"
               dur="3s"
             />
             <animate
               id="a2"
               attributeName="stop-color"
-              values="#ccb676; #d33963"
+              values="#2f72b2; #d33963"
               begin="a1.end"
               dur="3s"
             />
           </stop>
-          <stop offset="100%" stopColor="#ccb676">
+          <stop offset="100%" stopColor="#2f72b2">
             <animate
               id="a3"
               attributeName="stop-color"
-              values="#ccb676; #d33963"
+              values="#2f72b2; #d33963"
               begin="0; a4.end"
               dur="3s"
             />
             <animate
               id="a4"
               attributeName="stop-color"
-              values="#d33963; #ccb676"
+              values="#d33963; #2f72b2"
               begin="a3.end"
               dur="3s"
             />

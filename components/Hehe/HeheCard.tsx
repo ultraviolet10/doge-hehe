@@ -38,7 +38,7 @@ const HeheCard: React.FC<HeheCardProps> = () => {
   };
 
   return (
-    <div className="flex h-[80%] w-[50%] items-center justify-center place-self-center rounded-xl">
+    <div className="flex h-screen w-[80%] flex-col items-center justify-center md:w-full">
       <motion.div
         ref={ref}
         className="box"
@@ -52,14 +52,14 @@ const HeheCard: React.FC<HeheCardProps> = () => {
         }}
       >
         <img
-          className="h-[35px] w-[35px] rounded-md"
+          className="md:h-35 md:w-35 h-16 w-16 rounded-md"
           src="/img/cursor2.gif"
           alt="no-image"
         />
       </motion.div>
-      <div className="flex h-[75%] w-[85%] flex-col items-center justify-center space-y-8 rounded-2xl border-[2px] border-black bg-[#8BBCCC] px-12">
+      <div className="flex h-[80%] w-full flex-col items-center justify-center space-y-8 rounded-2xl border-[2px] border-black bg-[#8BBCCC] px-6 md:w-[50%] md:px-12">
         <motion.div
-          className="text-bold mb-4 h-20 rounded-xl p-5 font-doge text-[26px] text-white"
+          className="text-bold mb-4 h-20 rounded-xl px-5 py-3 text-center font-doge text-[20px] text-white md:h-24 md:px-6 md:py-7 md:text-[26px]"
           animate="end"
           initial="start"
           variants={variants}
@@ -70,17 +70,17 @@ const HeheCard: React.FC<HeheCardProps> = () => {
           DOGE MAKE HEHE
         </motion.div>
         <div className="flex flex-col space-y-4">
-          <span className="font-comic text-[25px]">
+          <span className="font-comic text-[18px] md:text-[25px]">
             Welcome to the DogeHehe Auctions!
           </span>
-          <span className="font-comic text-[21px] text-white">
+          <span className="font-comic text-[14px] text-white md:text-[21px]">
             {`One unique NFT up for auction everyday, with artwork that's stored
-              on-chain.`}
+          on-chain.`}
           </span>
-          <span className="font-comic text-[21px] text-white">
+          <span className="font-comic text-[14px] text-white md:text-[21px]">
             AI generated jokes on each NFT - yours to own.
           </span>
-          <span className="font-comic text-[25px]">
+          <span className="font-comic text-[18px] md:text-[25px]">
             Auction refreshes every 24 hours - bid away!
           </span>
         </div>

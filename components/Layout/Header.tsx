@@ -8,10 +8,10 @@ interface HeaderProps {} // eslint-disable-line
 const Header: React.FC<HeaderProps> = () => {
   return (
     <div className="bg-body">
-      <div className="p-4 md:container md:mx-auto">
-        <div className="flex flex-row justify-between">
+      <div className="mx-auto max-w-screen-lg p-4">
+        <div className="flex flex-row items-center justify-between">
           <ColoredHeader text="HeheDoge" />
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-3">
             <ConnectButton />
           </div>
         </div>

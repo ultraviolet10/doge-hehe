@@ -74,7 +74,7 @@ const AuctionPage: NextPage = () => {
   }, [getEventData, settleAuction]);
 
   return (
-    <div className="flex h-screen w-full flex-col bg-body">
+    <div className="flex min-h-screen w-full flex-col bg-body">
       <div className="flex w-full flex-col items-center justify-center p-3">
         <div className="flex w-full flex-row items-center justify-between">
           <img
@@ -96,8 +96,11 @@ const AuctionPage: NextPage = () => {
           />
         </div>
 
-        <div className="flex h-full w-[60%] flex-row items-center justify-center space-x-20 py-20 px-10">
-          <CurrentDoge />
+        <div className="flex h-full w-full flex-col items-center justify-center space-x-4 md:flex-row md:space-x-8 md:py-20 md:px-10">
+          <div className="flex w-[45%]">
+            <CurrentDoge />
+          </div>
+
           <div className="flex w-full flex-col space-y-8">
             <div className="flex w-full">
               <span className="font-doge text-[25px] text-black">
@@ -107,7 +110,7 @@ const AuctionPage: NextPage = () => {
               </span>
             </div>
             <div className="flex w-full flex-col">
-              <span className="font-comic text-[20px] text-black">
+              <span className="font-comic text-lg text-black md:text-[25px]">
                 {`Current Bidder:`}
               </span>
               <a
@@ -122,9 +125,9 @@ const AuctionPage: NextPage = () => {
                 </span>
               </a>
             </div>
-            <div className="flex w-[85%] flex-row justify-between">
+            <div className="flex w-full flex-col justify-between md:w-[85%] md:flex-row">
               <div className="flex flex-col space-y-2">
-                <span className="font-comic text-[20px] text-[#6c43dc]">
+                <span className="font-comic text-lg text-[#6c43dc] md:text-[25px]">
                   Current Bid
                 </span>
                 <span className="font-comic text-[30px] text-black">
@@ -134,10 +137,10 @@ const AuctionPage: NextPage = () => {
                 </span>
               </div>
 
-              <div className="w-[2px] bg-black bg-opacity-20"></div>
+              <div className="md:w-[2px] md:bg-black md:bg-opacity-20"></div>
 
               <div className="flex flex-col space-y-2">
-                <span className="font-comic text-[20px] text-[#6c43dc]">
+                <span className="font-comic text-lg text-[#6c43dc] md:text-[25px]">
                   Ends At
                 </span>
                 <span className="font-comic text-[30px] text-black">
@@ -149,10 +152,10 @@ const AuctionPage: NextPage = () => {
             {elapsed &&
               auction?.bidder.toLowerCase() === account?.toLowerCase() && (
                 <motion.div
-                  className="flex h-[40%] w-full flex-row items-center justify-center rounded-2xl border-[5px] border-white bg-purple-700 p-10"
+                  className="flex h-1/2 w-full flex-row items-center justify-center rounded-2xl border-[5px] border-white bg-purple-700 p-10 md:h-[40%]"
                   onClick={handleSettle}
                 >
-                  <span className="text-center font-doge text-[20px] text-white">
+                  <span className="text-center font-doge text-lg text-white md:text-[25px]">
                     CLAIM YOUR HEHE
                   </span>
                 </motion.div>
@@ -161,7 +164,7 @@ const AuctionPage: NextPage = () => {
             {!!elapsed &&
               auction?.bidder.toLowerCase() !== account?.toLowerCase() && (
                 <div className="flex h-[40%] w-full flex-row items-center justify-center space-x-4 rounded-2xl bg-purple-700 p-10">
-                  <span className="text-center font-doge text-[20px] text-white">{`${shortenAddress(
+                  <span className="text-center font-doge text-lg text-white md:text-[25px]">{`${shortenAddress(
                     auction?.bidder
                   )} is now a Hehe!`}</span>
                   <img
@@ -178,7 +181,7 @@ const AuctionPage: NextPage = () => {
                   value={bidAmount}
                   onChange={handleInput}
                   disabled={auction === undefined}
-                  className="group flex h-[44px] w-[70%] items-center rounded-lg bg-[#FFE6A0] px-5 font-doge text-base font-bold text-black placeholder:text-right hover:shadow"
+                  className="group flex h-[44px] w-[70%] items-center rounded-lg bg-[#FFE6A0] px-5 font-doge text-base font-bold text-black placeholder:text-right hover:shadow md:w-full"
                 />
                 <button
                   className="w-[30%] rounded-lg border border-black p-2 font-doge text-[10px]"
@@ -199,8 +202,8 @@ const AuctionPage: NextPage = () => {
             )}
           </div>
         </div>
-        <div className="flex w-[60%] items-center justify-center">
-          <span className="break-normal font-comic text-[25px]">
+        <div className="flex items-center justify-center pt-5 md:w-[60%]">
+          <span className="break-normal font-comic text-lg md:text-[25px]">
             {`Wow! Much welcome to HeheDoge! Here, you can
             bid on cool NFT artwork with jokes on them. Much humor! Every 24
             hours, we unveil a new NFT for auction, and you can place bids to
