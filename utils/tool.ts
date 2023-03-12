@@ -23,6 +23,33 @@ export const convertTimestampToHHMMSS = (timestamp: string) => {
 export const compareTimestamps = (endpointTimestamp: string) => {
   const currentTimestamp = Math.floor(Date.now() / 1000);
   const difference = currentTimestamp - Number(endpointTimestamp);
-  console.log(difference);
+
   return difference;
+};
+
+export const isWithin5Percent = (
+  value: string,
+  constantValue: number
+): boolean => {
+  const numValue = Number(value);
+  if (isNaN(numValue)) {
+    // handle invalid input
+    return false;
+  }
+
+  const fivePercent = constantValue * 0.05;
+  const lowerBound = constantValue - fivePercent;
+  const upperBound = constantValue + fivePercent;
+
+  return numValue >= lowerBound && numValue <= upperBound;
+};
+
+export const percentIncrement = (value: number): string => {
+  if (isNaN(value)) {
+    // handle invalid input
+    return 'Invalid input';
+  }
+
+  const incrementedValue = value * 1.05;
+  return incrementedValue.toFixed(2).toString();
 };

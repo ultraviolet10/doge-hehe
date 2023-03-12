@@ -10,6 +10,8 @@ import { Auction } from '@type/common';
 import {
   compareTimestamps,
   convertTimestampToHHMMSS,
+  isWithin5Percent,
+  percentIncrement,
   shortenAddress,
 } from '@utils/tool';
 import { motion } from 'framer-motion';
@@ -22,6 +24,7 @@ const AuctionPage: NextPage = () => {
   const [time, setTime] = useState<string | undefined>('');
   const [elapsed, setElapsed] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
+  const [validBid, setValidBid] = useState<boolean>(false);
 
   const { getEventData, placeHeheBid, settleAuction } = useWeb3();
 
@@ -57,13 +60,17 @@ const AuctionPage: NextPage = () => {
 
   const handleBid = useCallback(async () => {
     setVisible(true);
-    const placeBid = await placeHeheBid(bidAmount);
-    if (placeBid) {
-      getEventData();
-      setBidAmount('');
-      setVisible(false);
+    if (isWithin5Percent(bidAmount, auction?.bidAmount as number)) {
+      const placeBid = await placeHeheBid(bidAmount);
+      if (placeBid) {
+        getEventData();
+        setBidAmount('');
+        setVisible(false);
+      }
+    } else {
+      setValidBid(false);
     }
-  }, [bidAmount, getEventData, placeHeheBid]);
+  }, [auction?.bidAmount, bidAmount, getEventData, placeHeheBid]);
 
   const handleSettle = useCallback(async () => {
     const settle = await settleAuction();
@@ -162,7 +169,8 @@ const AuctionPage: NextPage = () => {
               )}
 
             {!!elapsed &&
-              auction?.bidder.toLowerCase() !== account?.toLowerCase() && (
+              auction?.bidder.toLowerCase() !== account?.toLowerCase() &&
+              auction?.bidder !== ethers.constants.AddressZero && (
                 <div className="flex h-[40%] w-full flex-row items-center justify-center space-x-4 rounded-2xl bg-purple-700 p-10">
                   <span className="text-center font-doge text-lg text-white md:text-[25px]">{`${shortenAddress(
                     auction?.bidder
@@ -177,12 +185,22 @@ const AuctionPage: NextPage = () => {
 
             {!elapsed && !visible ? (
               <div className="flex h-[20%] w-full flex-row space-x-3">
-                <input
-                  value={bidAmount}
-                  onChange={handleInput}
-                  disabled={auction === undefined}
-                  className="group flex h-[44px] w-[70%] items-center rounded-lg bg-[#FFE6A0] px-5 font-doge text-base font-bold text-black placeholder:text-right hover:shadow md:w-full"
-                />
+                <div className="flex flex-col items-center justify-center space-y-1">
+                  {validBid && (
+                    <span className="font-doge text-rose-500">
+                      bid much low
+                    </span>
+                  )}
+
+                  <input
+                    value={bidAmount}
+                    onChange={handleInput}
+                    disabled={auction === undefined}
+                    placeholder={percentIncrement(auction?.bidAmount as number)}
+                    className="placeholder:right group flex h-[44px] w-[70%] items-center rounded-lg bg-[#FFE6A0] px-5 font-doge text-base font-bold text-black placeholder:text-right hover:shadow md:w-full"
+                  />
+                </div>
+
                 <button
                   className="w-[30%] rounded-lg border border-black p-2 font-doge text-[10px]"
                   onClick={handleBid}
