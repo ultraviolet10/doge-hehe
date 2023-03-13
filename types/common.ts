@@ -7,9 +7,9 @@ export enum WalletType {
 
 export interface Auction {
   tokenId: number;
-  startTime: number;
+  startTime: BigNumber;
   endTime: BigNumber;
-  bidAmount: number;
+  bidAmount: BigNumber;
   bidder: string;
   settled: boolean;
 }

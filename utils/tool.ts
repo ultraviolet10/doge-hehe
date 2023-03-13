@@ -1,3 +1,5 @@
+import { BigNumber, ethers } from 'ethers';
+
 export const shortenAddress = (address?: string, digits = 5) => {
   if (!address) return '';
   return (
@@ -11,11 +13,9 @@ export const convertTimestampToHHMMSS = (timestamp: string) => {
   const date = new Date(Number(timestamp) * 1000);
   let hours = date.getHours().toString();
   let minutes = date.getMinutes().toString();
-  // let seconds = date.getSeconds().toString();
 
   hours = Number(hours) < 10 ? '0' + hours : hours;
   minutes = Number(minutes) < 10 ? '0' + minutes : minutes;
-  // seconds = Number(seconds) < 10 ? '0' + seconds : seconds;
 
   return `${hours}:${minutes}`;
 };
@@ -32,6 +32,8 @@ export const isWithin5Percent = (
   constantValue: number
 ): boolean => {
   const numValue = Number(value);
+
+  console.log(value, constantValue);
   if (isNaN(numValue)) {
     // handle invalid input
     return false;
@@ -44,12 +46,14 @@ export const isWithin5Percent = (
   return numValue >= lowerBound && numValue <= upperBound;
 };
 
-export const percentIncrement = (value: number): string => {
-  if (isNaN(value)) {
+export const percentIncrement = (value: BigNumber): string => {
+  if (isNaN(Number(value))) {
     // handle invalid input
-    return 'Invalid input';
+    return '...';
   }
 
-  const incrementedValue = value * 1.05;
-  return incrementedValue.toFixed(2).toString();
+  const ethValue = ethers.utils.formatEther(value);
+
+  const incrementedValue = Number(ethValue) * 1.05;
+  return incrementedValue.toFixed(4).toString();
 };

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import type { NextPage } from 'next';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 
 import ColoredHeader from '@components/Hehe/ColoredHeader';
 import CurrentDoge from '@components/Hehe/CurrentDoge';
@@ -10,11 +10,9 @@ import { Auction } from '@type/common';
 import {
   compareTimestamps,
   convertTimestampToHHMMSS,
-  isWithin5Percent,
   percentIncrement,
   shortenAddress,
 } from '@utils/tool';
-import { motion } from 'framer-motion';
 
 const AuctionPage: NextPage = () => {
   const { store } = useStore();
@@ -51,24 +49,27 @@ const AuctionPage: NextPage = () => {
     return () => clearInterval(interval);
   }, [getEventData]);
 
-  console.log(auction?.bidder.toLowerCase() == account?.toLowerCase());
-
   // eslint-disable-next-line
   const handleInput = (event: any) => {
     setBidAmount(event?.target.value);
   };
 
   const handleBid = useCallback(async () => {
-    setVisible(true);
-    if (isWithin5Percent(bidAmount, auction?.bidAmount as number)) {
+    if (
+      Number(percentIncrement(auction?.bidAmount as BigNumber)) <
+      Number(bidAmount)
+    ) {
       const placeBid = await placeHeheBid(bidAmount);
       if (placeBid) {
         getEventData();
         setBidAmount('');
         setVisible(false);
+        setValidBid(false);
+      } else {
+        setValidBid(true);
       }
     } else {
-      setValidBid(false);
+      setValidBid(true);
     }
   }, [auction?.bidAmount, bidAmount, getEventData, placeHeheBid]);
 
@@ -105,7 +106,7 @@ const AuctionPage: NextPage = () => {
 
         <div className="flex h-full w-full flex-col items-center justify-center space-x-4 md:flex-row md:space-x-8 md:py-20 md:px-10">
           <div className="flex w-[45%]">
-            <CurrentDoge />
+            <CurrentDoge tokenId={auction?.tokenId} />
           </div>
 
           <div className="flex w-full flex-col space-y-8">
@@ -113,7 +114,7 @@ const AuctionPage: NextPage = () => {
               <span className="font-doge text-[25px] text-black">
                 {`Hehe #`}
                 {` `}
-                {auction?.tokenId ? `${auction?.tokenId}` : `---`}
+                {auction?.tokenId !== undefined ? `${auction?.tokenId}` : `---`}
               </span>
             </div>
             <div className="flex w-full flex-col">
@@ -127,7 +128,10 @@ const AuctionPage: NextPage = () => {
               >
                 <span className="font-comic text-[30px] font-bold text-black">
                   {`${
-                    auction?.bidder ? shortenAddress(auction.bidder) : '---'
+                    auction?.bidder &&
+                    auction?.bidder !== ethers.constants.AddressZero
+                      ? shortenAddress(auction.bidder)
+                      : '---'
                   }`}
                 </span>
               </a>
@@ -158,14 +162,14 @@ const AuctionPage: NextPage = () => {
 
             {elapsed &&
               auction?.bidder.toLowerCase() === account?.toLowerCase() && (
-                <motion.div
-                  className="flex h-1/2 w-full flex-row items-center justify-center rounded-2xl border-[5px] border-white bg-purple-700 p-10 md:h-[40%]"
+                <div
+                  className="flex h-[20%] w-full flex-row items-center justify-center rounded-2xl border-[5px] border-white bg-purple-700 p-10 md:h-[30%]"
                   onClick={handleSettle}
                 >
                   <span className="text-center font-doge text-lg text-white md:text-[25px]">
                     CLAIM YOUR HEHE
                   </span>
-                </motion.div>
+                </div>
               )}
 
             {!!elapsed &&
@@ -193,10 +197,11 @@ const AuctionPage: NextPage = () => {
                   )}
 
                   <input
-                    value={bidAmount}
                     onChange={handleInput}
-                    disabled={auction === undefined}
-                    placeholder={percentIncrement(auction?.bidAmount as number)}
+                    disabled={elapsed || auction === undefined}
+                    placeholder={percentIncrement(
+                      auction?.bidAmount as BigNumber
+                    )}
                     className="placeholder:right group flex h-[44px] w-[70%] items-center rounded-lg bg-[#FFE6A0] px-5 font-doge text-base font-bold text-black placeholder:text-right hover:shadow md:w-full"
                   />
                 </div>
@@ -222,7 +227,7 @@ const AuctionPage: NextPage = () => {
         </div>
         <div className="flex items-center justify-center pt-5 md:w-[60%]">
           <span className="break-normal font-comic text-lg md:text-[25px]">
-            {`Wow! Much welcome to HeheDoge! Here, you can
+            {`Wow! Much welcome to HeheDoge, fren! Here, you can
             bid on cool NFT artwork with jokes on them. Much humor! Every 24
             hours, we unveil a new NFT for auction, and you can place bids to
             win it. The highest bidder wins, and you get to enjoy a unique joke
