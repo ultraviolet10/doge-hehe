@@ -1,2 +1,2 @@
 # doge-hehe
-nfts and other jokes 
+on-chain humour 
