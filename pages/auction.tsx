@@ -233,9 +233,7 @@ const AuctionPage: NextPage = () => {
             win it. The highest bidder wins, and you get to enjoy a unique joke
             on your new NFT. Much fun! Our on-chain platform ensures that
             everything is safe and transparent, so you can trust us with your
-            bids. But you gotta hurry! This 30-day experiment is a limited-time
-            offer, so don't miss your chance to be a part of the HeheDoge
-            community. Come join us and let's have much fun together!`}
+            bids. Come join us and let's have much fun together!`}
           </span>
         </div>
       </div>
