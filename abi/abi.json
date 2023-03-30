@@ -102,6 +102,11 @@
       "type": "constructor"
     },
     {
+      "inputs": [],
+      "name": "MintLimitExceeded",
+      "type": "error"
+    },
+    {
       "anonymous": false,
       "inputs": [
         {
@@ -156,9 +161,9 @@
       "inputs": [
         {
           "indexed": true,
-          "internalType": "uint256",
+          "internalType": "uint8",
           "name": "tokenId",
-          "type": "uint256"
+          "type": "uint8"
         }
       ],
       "name": "CreatedHeheToken",
@@ -209,6 +214,19 @@
       "type": "event"
     },
     {
+      "inputs": [],
+      "name": "MINT_LIMIT",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",
@@ -256,12 +274,25 @@
       "name": "createHehe",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint8",
           "name": "",
-          "type": "uint256"
+          "type": "uint8"
         }
       ],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "currentHeheId",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -276,19 +307,6 @@
       "outputs": [
         {
           "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "hahaRepo",
-      "outputs": [
-        {
-          "internalType": "contract IHahaRepo",
           "name": "",
           "type": "address"
         }
@@ -468,19 +486,6 @@
           "internalType": "string",
           "name": "",
           "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "tokenCounter",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -726,9 +731,9 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
+          "internalType": "uint8",
           "name": "_tokenId",
-          "type": "uint256"
+          "type": "uint8"
         }
       ],
       "name": "bid",
