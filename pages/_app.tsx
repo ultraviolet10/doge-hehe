@@ -24,6 +24,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
               name="viewport"
               content="width=device-width, initial-scale=1.0"
             />
+            <meta property="og:title" content="HeheDoge" />
+            <meta
+              property="og:description"
+              content="Much jokes!! Very Hehe!!"
+            />
+            <meta
+              property="og:image"
+              content={'/img/landing_social_hehe.jpeg'}
+            />
           </Head>
           <Script
             src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"
