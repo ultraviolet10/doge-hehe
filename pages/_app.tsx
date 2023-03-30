@@ -40,7 +40,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           />
           <Component {...pageProps} />
           <Analytics />
-          <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
+          <ToastContainer position={toast.POSITION.BOTTOM_CENTER} />
         </WalletProvider>
       </ModalProvider>
     </StoreProvider>
