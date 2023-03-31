@@ -23,22 +23,28 @@ const AuctionPage: NextPage = () => {
   const [elapsed, setElapsed] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
   const [validBid, setValidBid] = useState<boolean>(false);
+  const [paused, setPaused] = useState<boolean>(false);
 
-  const { getEventData, placeHeheBid, settleAuction } = useWeb3();
+  const { getEventData, placeHeheBid, settleAuction, getPaused } = useWeb3();
 
   useEffect(() => {
     async function getRecentAuctionData() {
-      const logs = await getEventData();
-
-      if (logs) {
-        setAuction(logs);
-        setTime(convertTimestampToHHMMSS(logs?.endTime));
-        compareTimestamps(logs?.endTime) < 0
-          ? setElapsed(false)
-          : setElapsed(true);
+      const pauseStatus = await getPaused();
+      if (pauseStatus) {
+        // if paused is false
+        setPaused(pauseStatus);
       } else {
-        // no auction active
-        setAuction(undefined);
+        const logs = await getEventData();
+        if (logs) {
+          setAuction(logs);
+          setTime(convertTimestampToHHMMSS(logs?.endTime));
+          compareTimestamps(logs?.endTime) < 0
+            ? setElapsed(false)
+            : setElapsed(true);
+        } else {
+          // no auction active
+          setAuction(undefined);
+        }
       }
     }
 
@@ -47,7 +53,7 @@ const AuctionPage: NextPage = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [getEventData]);
+  }, [getEventData, getPaused]);
 
   // eslint-disable-next-line
   const handleInput = (event: any) => {
@@ -91,7 +97,7 @@ const AuctionPage: NextPage = () => {
             alt="no-image"
           />
 
-          {!auction ? (
+          {!paused || !auction ? (
             <ColoredHeader
               text={`Oops! Looks like there isn't an ongoing auction.`}
             />

@@ -3,7 +3,6 @@ import { BigNumber, ContractTransaction, ethers } from 'ethers';
 
 import {
   AUCTION_CONTRACT_ADDRESS,
-  HEHE_CONTRACT_ADDRESS,
   HEHE_TOKEN_CONTRACT_ADDRESS,
 } from '@config/config';
 import { useStore } from '@store/store';
@@ -14,9 +13,6 @@ export const useWeb3 = () => {
   const { store } = useStore();
   const { provider } = store;
   const signer = provider?.getSigner();
-  const heheContract = useMemo(() => {
-    return new ethers.Contract(HEHE_CONTRACT_ADDRESS, ABI.hehe, signer);
-  }, [signer]);
 
   const heheTokenContract = useMemo(() => {
     return new ethers.Contract(
@@ -33,21 +29,6 @@ export const useWeb3 = () => {
       signer
     );
   }, [signer]);
-
-  const getHahas = useCallback(async () => {
-    const hahas = await heheContract.hahas(
-      Math.abs(
-        Math.floor(
-          Math.random() * (Math.ceil(0) - Math.floor(4)) + Math.ceil(0)
-        )
-      )
-    );
-    if (hahas) {
-      return hahas;
-    } else {
-      return '';
-    }
-  }, [heheContract]);
 
   const getEventData = useCallback(async () => {
     try {
@@ -99,8 +80,20 @@ export const useWeb3 = () => {
     }
   }, [auctionContract]);
 
+  const getPaused = useCallback(async () => {
+    try {
+      const getPauseStatus = await auctionContract.paused();
+      if (getPauseStatus) {
+        return getPauseStatus;
+      }
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }, [auctionContract]);
+
   return {
-    getHahas,
+    getPaused,
     getEventData,
     placeHeheBid,
     settleAuction,
