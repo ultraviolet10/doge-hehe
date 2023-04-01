@@ -32,7 +32,7 @@ export const useWeb3 = () => {
 
   const getEventData = useCallback(async () => {
     try {
-      const currentToken = await heheTokenContract.tokenCounter();
+      const currentToken = await heheTokenContract.currentHeheId();
       const logData = await auctionContract._auctions(Number(currentToken) - 1);
 
       return logData;
@@ -45,7 +45,7 @@ export const useWeb3 = () => {
   const placeHeheBid = useCallback(
     async (amount: string) => {
       try {
-        const currentToken = await heheTokenContract.tokenCounter();
+        const currentToken = await heheTokenContract.currentHeheId();
         const setBidTx: ContractTransaction = await auctionContract.bid(
           BigNumber.from(Number(currentToken) - 1),
           {

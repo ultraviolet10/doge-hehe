@@ -30,13 +30,6 @@ const HeheCard: React.FC<HeheCardProps> = () => {
     return () => clearInterval(interval);
   }, [colorIndex, colors.length]);
 
-  const buttonVariants = {
-    hover: {
-      backgroundImage: 'linear-gradient(90deg, #ff0099 0%, #493240 100%)',
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
     <div className="flex h-screen w-[80%] flex-col items-center justify-center md:w-full">
       <motion.div
@@ -63,6 +56,9 @@ const HeheCard: React.FC<HeheCardProps> = () => {
           animate="end"
           initial="start"
           variants={variants}
+          onClick={() => {
+            router.push('/auction');
+          }}
           onAnimationComplete={() =>
             setColorIndex((colorIndex + 1) % colors.length)
           }
@@ -78,22 +74,13 @@ const HeheCard: React.FC<HeheCardProps> = () => {
           on-chain.`}
           </span>
           <span className="font-comic text-[14px] text-white md:text-[21px]">
-            AI generated jokes on each NFT - yours to own.
+            AI generated jokes, one-liners, and philosophy on each NFT - yours
+            to own.
           </span>
           <span className="font-comic text-[18px] md:text-[25px]">
             Auction refreshes every 24 hours - bid away!
           </span>
         </div>
-        <motion.button
-          className="rounded-xl border border-indigo-900 bg-transparent py-2 px-4 font-doge font-semibold text-white hover:border-transparent hover:bg-indigo-500 hover:text-white"
-          variants={buttonVariants}
-          whileHover="hover"
-          onClick={() => {
-            router.push('/auction');
-          }}
-        >
-          Auctions!!!
-        </motion.button>
       </div>
     </div>
   );

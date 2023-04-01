@@ -31,7 +31,6 @@ const AuctionPage: NextPage = () => {
     async function getRecentAuctionData() {
       const pauseStatus = await getPaused();
       if (pauseStatus) {
-        // if paused is false
         setPaused(pauseStatus);
       } else {
         const logs = await getEventData();
@@ -97,7 +96,7 @@ const AuctionPage: NextPage = () => {
             alt="no-image"
           />
 
-          {!paused || !auction ? (
+          {paused || !auction ? (
             <ColoredHeader
               text={`Oops! Looks like there isn't an ongoing auction.`}
             />
@@ -128,11 +127,11 @@ const AuctionPage: NextPage = () => {
                 {`Current Bidder:`}
               </span>
               <a
-                href={`https://goerli.etherscan.io/address/${auction?.bidder}`}
+                href={`https://explorer.dogechain.dog/address/${auction?.bidder}`}
                 target="_blank"
                 rel="noreferrer"
               >
-                <span className="font-comic text-[30px] font-bold text-black">
+                <span className="font-comic text-[30px] font-bold text-black hover:text-[#e53db7] hover:underline hover:decoration-1">
                   {`${
                     auction?.bidder &&
                     auction?.bidder !== ethers.constants.AddressZero
@@ -169,7 +168,7 @@ const AuctionPage: NextPage = () => {
             {elapsed &&
               auction?.bidder.toLowerCase() === account?.toLowerCase() && (
                 <div
-                  className="flex h-[20%] w-full flex-row items-center justify-center rounded-2xl border-[5px] border-white bg-purple-700 p-10 md:h-[30%]"
+                  className="flex h-[50px] w-full flex-row items-center justify-center rounded-2xl border-[5px] border-white bg-purple-700 p-10 md:h-[50px] md:w-[80%]"
                   onClick={handleSettle}
                 >
                   <span className="text-center font-doge text-lg text-white md:text-[25px]">
@@ -181,15 +180,13 @@ const AuctionPage: NextPage = () => {
             {!!elapsed &&
               auction?.bidder.toLowerCase() !== account?.toLowerCase() &&
               auction?.bidder !== ethers.constants.AddressZero && (
-                <div className="flex h-[40%] w-full flex-row items-center justify-center space-x-4 rounded-2xl bg-purple-700 p-10">
-                  <span className="text-center font-doge text-lg text-white md:text-[25px]">{`${shortenAddress(
-                    auction?.bidder
-                  )} is now a Hehe!`}</span>
-                  <img
-                    className="h-[40px] w-[40px] -rotate-[10deg]"
-                    src={'/img/icon_var_4.svg'}
-                    alt="doge"
-                  />
+                <div
+                  className="flex h-[50px] w-full flex-row items-center justify-center rounded-2xl border-[5px] border-white bg-purple-700 p-10 md:h-[50px] md:w-[80%]"
+                  onClick={handleSettle}
+                >
+                  <span className="text-center font-doge text-lg text-white md:text-[25px]">
+                    lfg hehe
+                  </span>
                 </div>
               )}
 
@@ -220,19 +217,11 @@ const AuctionPage: NextPage = () => {
                   much bid
                 </button>
               </div>
-            ) : (
-              <div className="flex h-[20%] w-full flex-row space-x-3">
-                <img
-                  className="h-[60px] w-[60px] rounded-md"
-                  src="/img/bang.gif"
-                  alt="no-image"
-                />
-              </div>
-            )}
+            ) : null}
           </div>
         </div>
         <div className="flex items-center justify-center pt-5 md:w-[60%]">
-          <span className="break-normal font-comic text-lg md:text-[25px]">
+          <span className="break-normal text-center font-comic text-lg md:text-[25px]">
             {`Wow! Much welcome to HeheDoge, fren! Here, you can
             bid on cool NFT artwork with jokes on them. Much humor! Every 24
             hours, we unveil a new NFT for auction, and you can place bids to
