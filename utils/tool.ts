@@ -21,7 +21,7 @@ export const convertTimestampToHHMMSS = (timestamp: string) => {
 };
 
 export const compareTimestamps = (endpointTimestamp: string) => {
-  const currentTimestamp = Math.floor(Date.now() / 1000);
+  const currentTimestamp = Math.floor(Date.now() / 1000); // convert to epoch time
   const difference = currentTimestamp - Number(endpointTimestamp);
 
   return difference;
@@ -32,8 +32,6 @@ export const isWithin5Percent = (
   constantValue: number
 ): boolean => {
   const numValue = Number(value);
-
-  console.log(value, constantValue);
   if (isNaN(numValue)) {
     // handle invalid input
     return false;
