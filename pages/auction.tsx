@@ -67,7 +67,10 @@ const AuctionPage: NextPage = () => {
 
   const handleBid = useCallback(async () => {
     // if bid amount is lesser than 1000 doge, don't allow it
-    if (Number(percentIncrement(auction?.bidAmount as BigNumber))) {
+    if (
+      Number(percentIncrement(auction?.bidAmount as BigNumber)) <
+      Number(bidAmount)
+    ) {
       const placeBid = await placeHeheBid(bidAmount);
       if (placeBid) {
         getEventData();
@@ -88,6 +91,9 @@ const AuctionPage: NextPage = () => {
     if (settle) {
       setElapsed(false);
       getEventData();
+      setVisible(false);
+      setValidBid(false);
+      setBidAmount('0.0');
     }
   }, [getEventData, settleAuction]);
 
