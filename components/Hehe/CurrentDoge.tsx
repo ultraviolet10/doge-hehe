@@ -61,7 +61,7 @@ const CurrentDoge: React.FC<HeheCardProps> = ({ tokenId }) => {
       />
       <g fill="black" fontFamily="Verdana" fontSize="17">
         <text x="30" y="60">
-          Hehe #{`${tokenId}`}
+          Hehe #{`${tokenId ? tokenId : '??'}`}
         </text>
         <text x="30" y="90">
           ???

@@ -4,6 +4,7 @@ import { BigNumber, ethers } from 'ethers';
 
 import ColoredHeader from '@components/Hehe/ColoredHeader';
 import CurrentDoge from '@components/Hehe/CurrentDoge';
+import { ModalEnum, useModal } from '@contexts/modal';
 import { useWeb3 } from '@hooks/useWeb3';
 import { useStore } from '@store/store';
 import { Auction } from '@type/common';
@@ -17,6 +18,7 @@ import {
 const AuctionPage: NextPage = () => {
   const { store } = useStore();
   const { account } = store;
+  const { setModal } = useModal();
   const [bidAmount, setBidAmount] = useState<string>('0.0');
   const [auction, setAuction] = useState<Auction | undefined>(undefined);
   const [time, setTime] = useState<string | undefined>('');
@@ -59,17 +61,20 @@ const AuctionPage: NextPage = () => {
     setBidAmount(event?.target.value);
   };
 
+  const handleInfoRequest = useCallback(() => {
+    setModal(ModalEnum.INFO_MODAL);
+  }, [setModal]);
+
   const handleBid = useCallback(async () => {
-    if (
-      Number(percentIncrement(auction?.bidAmount as BigNumber)) <
-      Number(bidAmount)
-    ) {
+    // if bid amount is lesser than 1000 doge, don't allow it
+    if (Number(percentIncrement(auction?.bidAmount as BigNumber))) {
       const placeBid = await placeHeheBid(bidAmount);
       if (placeBid) {
         getEventData();
         setBidAmount('');
         setVisible(false);
         setValidBid(false);
+        setBidAmount('0.0');
       } else {
         setValidBid(true);
       }
@@ -177,18 +182,31 @@ const AuctionPage: NextPage = () => {
                 </div>
               )}
 
-            {!!elapsed &&
-              auction?.bidder.toLowerCase() !== account?.toLowerCase() &&
-              auction?.bidder !== ethers.constants.AddressZero && (
-                <div
-                  className="flex h-[50px] w-full flex-row items-center justify-center rounded-2xl border-[5px] border-white bg-purple-700 p-10 md:h-[50px] md:w-[80%]"
-                  onClick={handleSettle}
-                >
-                  <span className="text-center font-doge text-lg text-white md:text-[25px]">
-                    lfg hehe
-                  </span>
+            {
+              // cases for when the auction time has elapsed
+              ((!!elapsed &&
+                auction?.bidder.toLowerCase() !== account?.toLowerCase() &&
+                auction?.bidder !== ethers.constants.AddressZero) ||
+                (!!elapsed &&
+                  auction?.bidder == ethers.constants.AddressZero)) && (
+                <div className="flex flex-row items-center justify-center space-x-3">
+                  <div
+                    className="flex h-[50px] w-full flex-row items-center justify-center rounded-2xl border-[5px] border-white bg-purple-700 p-10 md:h-[50px] md:w-[80%]"
+                    onClick={handleSettle}
+                  >
+                    <span className="text-center font-doge text-lg text-white md:text-[25px]">
+                      LFG hehe
+                    </span>
+                  </div>
+                  <img
+                    src={'/img/info.svg'}
+                    alt="info"
+                    className="h-6 w-6"
+                    onClick={handleInfoRequest}
+                  />
                 </div>
-              )}
+              )
+            }
 
             {!elapsed && !visible ? (
               <div className="flex h-[20%] w-full flex-row space-x-3">

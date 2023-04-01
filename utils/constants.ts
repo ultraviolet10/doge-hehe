@@ -1,3 +1,4 @@
 export const CONSTANTS = {
-  DC_CHAIN_ID: 568,
+  DC_CHAIN_ID: 2000,
+  MINIMUM_STARTING_BID: 1000,
 };

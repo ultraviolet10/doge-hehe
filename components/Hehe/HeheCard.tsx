@@ -15,11 +15,19 @@ const HeheCard: React.FC<HeheCardProps> = () => {
   const colors = ['#3F3B6C', '#624F82', '#9F73AB', '#A3C7D6', '#E7153A'];
   const variants = {
     start: {
+      scale: 1,
+      transition: {
+        duration: 0.2,
+      },
       backgroundColor: colors[colorIndex],
     },
     end: {
+      scale: 1.2,
+      transition: {
+        duration: 0.2,
+        yoyo: 5,
+      },
       backgroundColor: colors[(colorIndex + 1) % colors.length],
-      transition: { duration: 1 },
     },
   };
 
@@ -52,7 +60,7 @@ const HeheCard: React.FC<HeheCardProps> = () => {
       </motion.div>
       <div className="flex h-[80%] w-full flex-col items-center justify-center space-y-8 rounded-2xl border-[2px] border-black bg-[#8BBCCC] px-6 md:w-[50%] md:px-12">
         <motion.div
-          className="text-bold mb-4 h-20 rounded-xl px-5 py-3 text-center font-doge text-[20px] text-white md:h-24 md:px-6 md:py-7 md:text-[26px]"
+          className="text-bold mb-4 h-20 w-[80%] rounded-xl px-5 py-3 text-center font-doge text-[20px] text-white md:h-24 md:px-6 md:py-7 md:text-[26px]"
           animate="end"
           initial="start"
           variants={variants}
@@ -65,7 +73,7 @@ const HeheCard: React.FC<HeheCardProps> = () => {
         >
           DOGE MAKE HEHE
         </motion.div>
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col items-center space-y-4">
           <span className="font-comic text-[18px] md:text-[25px]">
             Welcome to the DogeHehe Auctions!
           </span>
