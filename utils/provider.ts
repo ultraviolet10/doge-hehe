@@ -6,9 +6,9 @@ import { providers } from 'ethers';
 import { ALCHEMY_API_KEY, ALCHEMY_URL, ETHEREUM_NETWORK } from '@config/config';
 import { StoreActions, StoreActionTypes, StoreState } from '@type/store';
 
-import { CONSTANTS } from './constants';
+// import { CONSTANTS } from './constants';
 
-const DC_CHAIN_ID = CONSTANTS.DC_CHAIN_ID;
+// const DC_CHAIN_ID = CONSTANTS.DC_CHAIN_ID;
 
 export const configMetamask = async (
   dispatch: Dispatch<StoreActions>
@@ -23,11 +23,11 @@ export const configMetamask = async (
     provider = new providers.AlchemyProvider(ETHEREUM_NETWORK, ALCHEMY_API_KEY);
   }
 
-  const { chainId } = await provider.getNetwork();
+  // const { chainId } = await provider.getNetwork();
 
-  if (chainId !== DC_CHAIN_ID) {
-    return { provider: undefined, account: undefined };
-  }
+  // if (chainId !== DC_CHAIN_ID) {
+  //   return { provider: undefined, account: undefined };
+  // }
 
   dispatch({
     type: StoreActionTypes.SET_PROVIDER,
