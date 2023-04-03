@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 
+import { ModalEnum, useModal } from '@contexts/modal';
 import { useFollowPointer } from '@hooks/useFollowPointer';
+import { useStore } from '@store/store';
 import { motion } from 'framer-motion';
 
 interface HeheCardProps {} // eslint-disable-line
@@ -10,6 +12,11 @@ const HeheCard: React.FC<HeheCardProps> = () => {
   const router = useRouter();
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
+
+  const { store } = useStore();
+  const { setModal } = useModal();
+
+  const { account } = store;
 
   const [colorIndex, setColorIndex] = useState(0);
   const colors = ['#3F3B6C', '#624F82', '#9F73AB', '#A3C7D6', '#E7153A'];
@@ -38,6 +45,14 @@ const HeheCard: React.FC<HeheCardProps> = () => {
     return () => clearInterval(interval);
   }, [colorIndex, colors.length]);
 
+  const handleEntryClick = useCallback(() => {
+    if (account) {
+      router.push('/auction');
+    } else {
+      setModal(ModalEnum.REQUEST_MODAL);
+    }
+  }, [account, router, setModal]);
+
   return (
     <div className="flex h-screen w-[80%] flex-col items-center justify-center md:w-full">
       <motion.div
@@ -64,9 +79,7 @@ const HeheCard: React.FC<HeheCardProps> = () => {
           animate="end"
           initial="start"
           variants={variants}
-          onClick={() => {
-            router.push('/auction');
-          }}
+          onClick={handleEntryClick}
           onAnimationComplete={() =>
             setColorIndex((colorIndex + 1) % colors.length)
           }

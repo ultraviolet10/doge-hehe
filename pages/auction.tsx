@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { BigNumber, ethers } from 'ethers';
 
 import ColoredHeader from '@components/Hehe/ColoredHeader';
@@ -16,6 +17,7 @@ import {
 } from '@utils/tool';
 
 const AuctionPage: NextPage = () => {
+  const router = useRouter();
   const { store } = useStore();
   const { account } = store;
   const { setModal } = useModal();
@@ -50,11 +52,15 @@ const AuctionPage: NextPage = () => {
     }
 
     const interval = setInterval(() => {
+      if (!account) {
+        router.push('/');
+        return;
+      }
       getRecentAuctionData();
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [getEventData, getPaused]);
+  }, [account, getEventData, getPaused, router]);
 
   // eslint-disable-next-line
   const handleInput = (event: any) => {
