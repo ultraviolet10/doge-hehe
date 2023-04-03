@@ -64,10 +64,10 @@ const CurrentDoge: React.FC<HeheCardProps> = ({ tokenId }) => {
           Hehe #{`${tokenId ? tokenId : '??'}`}
         </text>
         <text x="30" y="90">
-          ???
+          Such auction!
         </text>
         <text x="30" y="120">
-          ???
+          Much bidding!!!!
         </text>
       </g>
       <g
