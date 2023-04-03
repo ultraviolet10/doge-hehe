@@ -14,9 +14,10 @@ export const configMetamask = async (
   dispatch: Dispatch<StoreActions>
 ): Promise<StoreState> => {
   const metamaskProvider = await detectEthereumProvider();
+  console.log(metamaskProvider);
   let provider: providers.AlchemyProvider | providers.Web3Provider;
 
-  if (metamaskProvider && window.ethereum) {
+  if (window.ethereum && window.ethereum.isMetaMask) {
     // metamask
     provider = new providers.Web3Provider(window.ethereum);
   } else {
