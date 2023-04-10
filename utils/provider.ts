@@ -16,7 +16,7 @@ export const configMetamask = async (
   const metamaskProvider = await detectEthereumProvider();
   let provider: providers.AlchemyProvider | providers.Web3Provider;
 
-  if (metamaskProvider && window.ethereum) {
+  if (metamaskProvider && window.ethereum?.isMetaMask) {
     // metamask
     provider = new providers.Web3Provider(window.ethereum);
   } else {
