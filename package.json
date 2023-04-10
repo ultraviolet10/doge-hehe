@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
-    "@metamask/detect-provider": "^1.2.0",
+    "@metamask/detect-provider": "^2.0.0",
     "@metamask/providers": "^8.1.1",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/react": "17.0.2",
