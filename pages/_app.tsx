@@ -31,7 +31,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             />
             <meta
               property="og:image"
-              content={'/img/landing_social_hehe.jpeg'}
+              content={'/img/hehe.jpeg'}
             />
           </Head>
           <Script
